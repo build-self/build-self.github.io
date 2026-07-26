@@ -3,21 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0e1512" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Self" />
-    <title>Self — daily health check-in</title>
-    <meta
-      name="description"
-      content="Thirty seconds a day: weigh in, tick your habits, log movement and meals. Watch the trend line, not the scale."
-    />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="/assets/index-18u0qeiB.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CBIRoXhp.css">
-  <link rel="manifest" href="/manifest.webmanifest"></head>
+    <meta name="theme-color" content="#101418" />
+    <title>build-self</title>
+    <meta name="description" content="Small personal apps: Self and Sharp." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E" />
+    <style>
+      :root { color-scheme: light dark; --bg:#f6f7f8; --card:#fff; --text:#161a1d; --muted:#646d75; --line:#e0e4e8; }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg:#101418; --card:#181d22; --text:#e8ecef; --muted:#98a2ab; --line:#252c33; }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin:0; min-height:100dvh; background:var(--bg); color:var(--text);
+        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+        display:flex; align-items:center; justify-content:center; padding:24px;
+        -webkit-font-smoothing:antialiased;
+      }
+      main { width:100%; max-width:420px; }
+      h1 { font-size:1.5rem; margin:0 0 4px; letter-spacing:-0.02em; }
+      .sub { color:var(--muted); margin:0 0 22px; font-size:0.92rem; }
+      a.app {
+        display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit;
+        background:var(--card); border:1px solid var(--line); border-radius:18px;
+        padding:16px; margin-bottom:12px;
+      }
+      a.app:active { transform:scale(0.99); }
+      .ico { width:44px; height:44px; border-radius:12px; flex:none; display:grid; place-items:center; font-size:1.4rem; }
+      .s1 { background:rgba(13,154,99,.14); }
+      .s2 { background:rgba(79,70,229,.14); }
+      .t { flex:1; min-width:0; }
+      .t strong { display:block; font-size:1.02rem; }
+      .t span { display:block; color:var(--muted); font-size:0.85rem; margin-top:2px; }
+      .chev { color:var(--muted); }
+      .note { color:var(--muted); font-size:0.8rem; line-height:1.5; margin-top:18px; }
+    </style>
+  </head>
   <body>
-    <div id="app"></div>
+    <main>
+      <h1>build-self</h1>
+      <p class="sub">Two small apps. Everything stays on your device.</p>
+
+      <a class="app" href="/self/">
+        <span class="ico s1" aria-hidden="true">🌱</span>
+        <span class="t"><strong>Self</strong><span>Daily health check-in — weight trend, habits</span></span>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+
+      <a class="app" href="/sharp/">
+        <span class="ico s2" aria-hidden="true">⚡</span>
+        <span class="t"><strong>Sharp</strong><span>Attention check — find when your mind is best</span></span>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+
+      <p class="note">Add either one to your home screen from its own page, not from here.</p>
+    </main>
   </body>
 </html>

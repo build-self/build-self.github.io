@@ -1,1 +1,34 @@
-if(!self.define){let e,i={};const n=(n,s)=>(n=new URL(n+".js",s).href,i[n]||new Promise(i=>{if("document"in self){const e=document.createElement("script");e.src=n,e.onload=i,document.head.appendChild(e)}else e=n,importScripts(n),i()}).then(()=>{let e=i[n];if(!e)throw new Error(`Module ${n} didn’t register its module`);return e}));self.define=(s,r)=>{const o=e||("document"in self?document.currentScript.src:"")||location.href;if(i[o])return;let d={};const c=e=>n(e,o),a={module:{uri:o},exports:d,require:c};i[o]=Promise.all(s.map(e=>a[e]||c(e))).then(e=>(r(...e),d))}}define(["./workbox-2fbc6a65"],function(e){"use strict";self.addEventListener("message",e=>{e.data&&"SKIP_WAITING"===e.data.type&&self.skipWaiting()}),e.precacheAndRoute([{url:"pwa-maskable-512x512.png",revision:"c29f46dc8011b08c2a84ec405f1e0761"},{url:"pwa-512x512.png",revision:"5eee0a7248499e13c4d72553073a832b"},{url:"pwa-192x192.png",revision:"49b01f8051d9ad446b754c8535873c55"},{url:"index.html",revision:"d8da80dc1ab7f6d005f3d5b44af36ff1"},{url:"apple-touch-icon.png",revision:"3a3a3dcf22c0340addd3a37f69321cd1"},{url:"assets/workbox-window.prod.es5-BqEJf4Xk.js",revision:null},{url:"assets/index-CBIRoXhp.css",revision:null},{url:"assets/index-18u0qeiB.js",revision:null},{url:"apple-touch-icon.png",revision:"3a3a3dcf22c0340addd3a37f69321cd1"},{url:"pwa-192x192.png",revision:"49b01f8051d9ad446b754c8535873c55"},{url:"pwa-512x512.png",revision:"5eee0a7248499e13c4d72553073a832b"},{url:"pwa-maskable-512x512.png",revision:"c29f46dc8011b08c2a84ec405f1e0761"},{url:"manifest.webmanifest",revision:"1a36263b311433e64ed14186e07ded08"}],{}),e.cleanupOutdatedCaches(),e.registerRoute(new e.NavigationRoute(e.createHandlerBoundToURL("index.html")))});
+/**
+ * Kill-switch service worker for the ORIGIN ROOT.
+ *
+ * `self` used to be served from "/" and registered a service worker at scope
+ * "/" with a navigate fallback. A root-scoped worker like that intercepts every
+ * navigation on the origin, so once you had opened Self, visiting /sharp/ was
+ * served Self's cached shell instead — the two apps fought over one scope.
+ *
+ * Both apps now live under their own base (/self/, /sharp/) with their own
+ * scopes. But devices that already installed the old root worker keep it, and a
+ * service worker is only replaced when the browser fetches a DIFFERENT script
+ * at the same URL. So this file has to exist here: it takes over, drops the
+ * stale root caches, unregisters itself, and reloads any open window.
+ *
+ * Do not delete this file. Removing it would 404 and leave old installs
+ * permanently controlled by the worker this replaces.
+ */
+self.addEventListener('install', () => self.skipWaiting());
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    (async () => {
+      // caches is ORIGIN-wide, so scope the purge to the old root precache and
+      // leave /self/ and /sharp/ caches intact.
+      const keys = await caches.keys();
+      await Promise.all(
+        keys.filter((k) => !k.includes('/self/') && !k.includes('/sharp/')).map((k) => caches.delete(k))
+      );
+      await self.registration.unregister();
+      const windows = await self.clients.matchAll({ type: 'window' });
+      for (const client of windows) client.navigate(client.url);
+    })()
+  );
+});
