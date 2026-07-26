@@ -57,5 +57,16 @@
 
       <p class="note">Add either one to your home screen from its own page, not from here.</p>
     </main>
+
+    <script>
+      /* Forces an update check on any service worker still registered at scope
+         "/" — the old root-scoped Self worker. register() triggers the check
+         immediately; without it the browser might wait up to 24h, leaving the
+         stale worker hijacking /sharp/ in the meantime. The script it fetches
+         (/sw.js) is a kill switch that unregisters itself. */
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      }
+    </script>
   </body>
 </html>
