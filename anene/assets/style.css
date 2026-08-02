@@ -248,6 +248,19 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 1.4em 0; }
 
 .source { margin-top: 16px; font-size: 0.8rem; color: var(--muted); word-break: break-word; }
 
+/* Required attribution (see PERMISSION.md). Quiet, but never hidden — it is a
+   condition of using these words, not a footnote. */
+.attrib {
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--muted);
+  word-break: break-word;
+}
+
+.attrib p { margin: 0 0 3px; }
+
 /* ---- about ---- */
 
 .lede { font-size: 1rem; color: var(--muted); margin-bottom: 22px; }
