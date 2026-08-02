@@ -1,26 +1,47 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0b1626" />
-    <link rel="apple-touch-icon" href="/anene/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Anene" />
-    <title>Anene — Kiribati songs and lyrics</title>
-    <meta
-      name="description"
-      content="Keep the Kiribati songs you sing. Lyrics in te taetae ni Kiribati, your own translation beside them, offline and searchable."
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B6%3C/text%3E%3C/svg%3E"
-    />
-    <script type="module" crossorigin src="/anene/assets/index-DHIPXU-2.js"></script>
-    <link rel="stylesheet" crossorigin href="/anene/assets/index-Dm3kiCvu.css">
-  <link rel="manifest" href="/anene/manifest.webmanifest"></head>
-  <body>
-    <div id="app"></div>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1626">
+<title>Anene — Kiribati songs and lyrics</title>
+<meta name="description" content="A songbook for Kiribati music.">
+<link rel="manifest" href="/anene/manifest.webmanifest">
+<link rel="stylesheet" href="/anene/assets/style.css">
+<link rel="apple-touch-icon" href="/anene/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Anene">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B6%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="wrap">
+<main>
+
+<div class="page-head"><h1>Songbook</h1></div>
+<div class="empty">
+<h2>No songs yet</h2>
+<p>Songs live in <code>content/songs/</code>, one file each. Run <code>npm run new "Title"</code> to start one, or copy <code>_TEMPLATE.md</code>.</p>
+<p><a href="/anene/find.html">Find</a> lists 149 Kiribati songs known to be documented, to pick from.</p>
+</div>
+</main>
+</div>
+<nav aria-label="Sections">
+<a href="/anene/" class="tab active" aria-current="page">Songbook</a>
+<a href="/anene/find.html" class="tab">Find</a>
+<a href="/anene/about.html" class="tab">About</a>
+</nav>
+<script>(function(){
+  try{
+    var s=localStorage.getItem('anene.scale');
+    if(s)document.documentElement.style.setProperty('--scale',s);
+  }catch(e){}
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){
+      navigator.serviceWorker.register('/anene/sw.js',{scope:'/anene/'}).catch(function(){});
+    });
+  }
+})();</script>
+
+</body>
 </html>
